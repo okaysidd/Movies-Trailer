@@ -2,12 +2,17 @@ import fresh_tomatoes as ft
 
 import movies
 
+'''
+movie_name = movies.Movies('Movie Title',
+						   'Movie story line',
+						   'Link to the movie poster',
+						   'Link to the movie trailer')
+'''
 casino_royale = movies.Movies('Casino Royale',
                               'New 007 must is appointed, but is he right for the job?',
                               'https://img.reelgood.com/content/movie/6befffd8-1f0c-405e-91c8-d84d0d080329/poster-780.webp',
                               'https://www.youtube.com/watch?v=36mnx8dBbGE')
-#print(casino_royale.movie_story)
-#casino_royale.show_trailer()
+
 
 quantum_of_solace = movies.Movies('Quantum Of Solace',
                                   'An investigation leads Bond on the trail of Dominic Greene, a world-renowned developer of green technology. When Dominic assists a coup in Bolivia to fulfil his own intentions, Bond must save the day.',
@@ -23,6 +28,9 @@ spectre = movies.Movies('Spectre',
                         'James Bond receives an obscure message from M about a sinister organisation, \'SPECTRE\'. With the help of Madeleine, he uncovers the conspiracy, only to face an ugly truth.',
                         'https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Fscottmendelson%2Ffiles%2F2015%2F11%2Fspectre-banner-3-1200x600.jpg',
                         'https://www.youtube.com/watch?v=6kw1UVovByw')
-
+						
+'''
+all the movies should be added to this list / array below
+'''
 movies_list = [casino_royale, quantum_of_solace, skyfall, spectre]
 ft.open_movies_page(movies_list)
