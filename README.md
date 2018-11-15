@@ -1,14 +1,19 @@
 # Movies-Trailer
+
+## Introduction
 This project was part of Udacity Python foundation course.
 It involves building a simple backend for a movies trailer website.
 
+## How to use
 To get the project running, add the three Python files-
-1. entertainment.py
-2. fresh_tomatoes.py
-3. movies.py
-into the same folder, and then run the entertainment.py file.
-The class is defined in the movies.py file and the sample data for four movies is provided in the entertainment.py file. The fresh_tomatoes.py file contains the front end of the trailer website, also written inside python.
+- <i>entertainment.py</i>
+- <i>fresh_tomatoes.py</i>
+- <i>movies.py</i>
 
-The comments in the entertainment.py file make it easier to add more movies in the future.
+into the same folder, and then run the <i>entertainment.py</i> file.
 
-The fresh_tomatoes.html file in the repository is the sample result that was created using the Python files, as per the process mentioned above.
+The class is defined in the <i>movies.py</i> file and the sample data for four movies is provided in the <i>entertainment.py</i> file. The fresh_tomatoes.py file contains the front end of the trailer website, also written inside python.
+
+The comments in the <i>entertainment.py</i> file make it easier to add more movies in the future.
+
+The <i>fresh_tomatoes.html</i> file in the repository is the sample result that was created using the Python files, as per the process mentioned above.
