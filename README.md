@@ -13,6 +13,7 @@ To get the project running, add the three Python files-
 - <i>entertainment_json.py</i> OR <i>entertainment_udacity.py</i>
 - <i>fresh_tomatoes.py</i> (updated with story line display)
 - <i>movies.py</i>
+- <i>movies_details.json</i>
 
 into the same folder, and then run the <i>entertainment_json.py</i> / <i>entertainment_udacity.py</i>file.
 
