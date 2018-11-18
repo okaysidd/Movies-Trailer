@@ -17,6 +17,41 @@ main_page_head = '''
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
     <style type="text/css" media="screen">
+        .storyModal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        .story-modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .storyline {
+            cursor:pointer;
+        }
         body {
             padding-top: 80px;
         }
@@ -39,7 +74,7 @@ main_page_head = '''
             margin-bottom: 20px;
             padding-top: 20px;
         }
-        .movie-tile:hover {
+        .img-tile:hover {
             background-color: #EEE;
             cursor: pointer;
         }
@@ -58,6 +93,24 @@ main_page_head = '''
         }
     </style>
     <script type="text/javascript" charset="utf-8">
+        var modal = document.getElementById("storyModal");
+        //var btn = document.getElementById("myBtn");
+        var span = document.getElementsByClassName("close")[0];
+        function show_story(clickedid) {
+            var modal = document.getElementById(clickedid+'div');
+            modal.style.display = "block";
+        }
+        function close_story(clickedid) {
+            var modal = document.getElementById(clickedid+'div');
+            modal.style.display = "none";
+        }
+        /*window.onclick = function(event) {
+            debugger;
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }*/
+
         // Pause the video when the modal is closed
         $(document).on('click', '.hanging-close, .modal-backdrop, .modal', function (event) {
             // Remove the src so the player itself gets removed, as this is the only
@@ -65,7 +118,7 @@ main_page_head = '''
             $("#trailer-video-container").empty();
         });
         // Start playing the video whenever the trailer modal is opened
-        $(document).on('click', '.movie-tile', function (event) {
+        $(document).on('click', '.img-tile', function (event) {
             var trailerYouTubeId = $(this).attr('data-trailer-youtube-id')
             var sourceUrl = 'http://www.youtube.com/embed/' + trailerYouTubeId + '?autoplay=1&html5=1';
             $("#trailer-video-container").empty().append($("<iframe></iframe>", {
@@ -122,9 +175,17 @@ main_page_content = '''
 
 # A single movie entry html template
 movie_tile_content = '''
-<div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
-    <img src="{poster_image_url}" width="220" height="342">
-    <h2>{movie_title}</h2>
+<div class="col-md-6 movie-tile col-lg-4 text-center">
+    <img class="img-tile" src="{poster_image_url}" width="220" height="342" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
+    <h2 class="img-tile" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">{movie_title}</h2>
+    <a class="storyline" id="{trailer_youtube_id}" onclick="show_story(this.id)">Story line</a>
+    <div id="{trailer_youtube_id}div" class="storyModal">
+      <!-- Modal content -->
+      <div class="story-modal-content">
+        <span class="close" id="{trailer_youtube_id}" onclick="close_story(this.id)">&times;</span>
+        <p>{storyline}</p>
+      </div>
+    </div>
 </div>
 '''
 
@@ -145,7 +206,8 @@ def create_movie_tiles_content(movies):
         content += movie_tile_content.format(
             movie_title=movie.title,
             poster_image_url=movie.poster_image_url,
-            trailer_youtube_id=trailer_youtube_id
+            trailer_youtube_id=trailer_youtube_id,
+            storyline=movie.storyline
         )
     return content
 
