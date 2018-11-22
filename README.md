@@ -31,4 +31,4 @@ The <i>fresh_tomatoes.html</i> file in the repository is the sample result that 
 
 In case the tmdb module is not available, <i>entertainment_udacity.py</i> and <i>entertainment_json.py</i> are also available in the repository, which are simpler versions of the project, with similar visual outputs.
 
-** *more details about 'the movie database' [here](https://www.themoviedb.org/documentation/api). **
+***more details about 'the movie database' [here](https://www.themoviedb.org/documentation/api).**
