@@ -16,7 +16,7 @@ with open('movies_details.json', 'r') as file:
 # to save all movie titles to inform user if adding some movie twice
 movie_titles = []
 for i in range(len(json_movies_data['movies'])):
-	movie_titles.append(json_movies_data['movies'][i]['movie_title'])
+    movie_titles.append(json_movies_data['movies'][i]['movie_title'])
 
 
 def show_movies():
@@ -100,7 +100,7 @@ def search_for_movie():
 
 
 def get_youtube_link(movie_picked):
-	"""
+    """
     Get the YouTube link to the movie trailer.
 
     The API result returned from the tbdb python module usually
@@ -135,107 +135,113 @@ def get_youtube_link(movie_picked):
 
 
 def save_movies():
-	"""
-	Option to save new movies in the system.
+    """
+    Option to save new movies in the system.
 
-	If the user has queried for new movies, it gives the option to add those movies to the JSON we maintain, so those movies show up everytime without needing to add them later.
-	"""
-	save_movies = input('Save these movies permanently? Y/N  ')
-	if save_movies=='yes' or save_movies=='yus' or save_movies=='y':
-		with open('movies_details.json', 'w') as file:
-			json.dump(json_movies_data, file)
+    If the user has queried for new movies, it gives the option to
+    add those movies to the JSON we maintain, so those movies show up
+    everytime without needing to add them later.
+    """
+    save_movies = input('Save these movies permanently? Y/N  ')
+    if save_movies == 'yes' or save_movies == 'yus' or save_movies == 'y':
+        with open('movies_details.json', 'w') as file:
+            json.dump(json_movies_data, file)
 
 
 def display_trailer_webpage():
-	"""
-	Display the final trailer webpage.
+    """
+    Display the final trailer webpage.
 
-	Reads the JSON file with old and new (if added) movies and prepares the webpage with trailers of all the movies.
-	"""
-	movies_list=[]
-	for i in range(len(json_movies_data['movies'])):
-	    name = json_movies_data['movies'][i]['movie_title']
-	    # formatting the movie title so that object name is always without spaces, and also makes sense
-	    #movie_title = ('_').join(name.split())
-	    movie_title = name
-	    movie_storyline = json_movies_data['movies'][i]['movie_storyline']
-	    poster_image = json_movies_data['movies'][i]['poster_image']
-	    trailer_youtube = json_movies_data['movies'][i]['trailer_youtube']
-	    # adding object each time to the list of movie objects
-	    movies_list.append(movies.Movies(movie_title, movie_storyline, poster_image, trailer_youtube))
+    Reads the JSON file with old and new (if added) movies
+    and prepares the webpage with trailers of all the movies.
+    """
+    movies_list = []
+    for i in range(len(json_movies_data['movies'])):
+        name = json_movies_data['movies'][i]['movie_title']
+        movie_title = name
+        movie_storyline = json_movies_data['movies'][i]['movie_storyline']
+        poster_image = json_movies_data['movies'][i]['poster_image']
+        trailer_youtube = json_movies_data['movies'][i]['trailer_youtube']
+
+        # adding object each time to the list of movie objects
+        movies_list.append(movies.Movies(movie_title, movie_storyline, poster_image, trailer_youtube))
 
     # using fresh_tomatoes.py file to finally open the webpage with the movie object items
-	ft.open_movies_page(movies_list)
+    ft.open_movies_page(movies_list)
 
 
 def main():
-	"""
-	Main function to controll all other functions from one place.
+    """
+    Main function to controll all other functions from one place.
 
-	Handles all functions at one place and lets users have option to add new movies.
-	If they add new movies, gives options to save new movies' data permanently.
-	Retrieves all the movies' data using pythn API module or API url.
-	Displays the movies trailer webpage.
-	"""
-	try:
-		source = urllib.request.urlopen('https://www.google.com/')
-	except:
-		print('Your internet connection might not be working.\nYou won\'t be able to add new movies if the internet connection doesn\'t work.\nThe movies webpage might not work as intended, and the links to the YouTube trailer won\'t work.')
-		input('Click enter to continue..  ')
-		display_trailer_webpage()
-		return
+    Handles all functions at one place and lets users have option to add new movies.
+    If they add new movies, gives options to save new movies' data permanently.
+    Retrieves all the movies' data using pythn API module or API url.
+    Displays the movies trailer webpage.
+    """
+    try:
+        source = urllib.request.urlopen('https://www.google.com/')
+    except:
+        print('Your internet connection might not be working.')
+        print('You won\'t be able to add new movies if the internet connection doesn\'t work.')
+        print('The movies webpage might not work as intended')
+        print('The links to the YouTube trailer won\'t work.')
+        input('Click enter to continue..  ')
+        display_trailer_webpage()
+        return
 
-	show_movies()
+    show_movies()
 
-	new_movie_added = False
+    new_movie_added = False
 
-	while True:
+    while True:
 
-		choice = input('\nAdd more movies? Y/N  ').lower()
+        choice = input('\nAdd more movies? Y/N  ').lower()
 
-		if choice == 'yes' or choice == 'yus' or choice == 'y':
-			# search for the movie the user wants and get its id
-			movie_picked = search_for_movie()
-			# print(movie_picked)
-			movie_title = movie_picked['title']
+        if choice == 'yes' or choice == 'yus' or choice == 'y':
+            # search for the movie the user wants and get its id
+            movie_picked = search_for_movie()
+            # print(movie_picked)
+            movie_title = movie_picked['title']
 
-			if movie_title in movie_titles:
-				ch = input('A movie with the same name already exists. Continue to add? Y/N  ').lower()
-				if ch!='yes' and ch!='yus' and ch!='y':
-					continue
+            if movie_title in movie_titles:
+                print('A movie with the same name already exists.')
+                ch = input('Continue to add? Y/N  ').lower()
+                if ch != 'yes' and ch != 'yus' and ch != 'y':
+                    continue
 
-			movie_storyline = movie_picked['overview']
-			poster_image = 'https://image.tmdb.org/t/p/original' + str(movie_picked['poster_path'])
-			# webbrowser.open(movie_poster)
+            movie_storyline = movie_picked['overview']
+            poster_path = str(movie_picked['poster_path'])
+            poster_image = 'https://image.tmdb.org/t/p/original' + poster_path
+            # webbrowser.open(movie_poster)
 
-			# getting the youtube link and the storyline from the json response of the api
-			trailer_youtube = get_youtube_link(str(movie_picked['id']))
+            # getting the youtube link and the storyline from the json response of the api
+            trailer_youtube = get_youtube_link(str(movie_picked['id']))
 
-			# create object of the movie and add to the json retrieved
-			new_movie = {
-			'movie_storyline': movie_storyline,
-			'movie_title': movie_title,
-			'poster_image': poster_image,
-			'trailer_youtube': trailer_youtube
-			}
-			json_movies_data['movies'].append(new_movie)
+            # create object of the movie and add to the json retrieved
+            new_movie = {
+                'movie_storyline': movie_storyline,
+                'movie_title': movie_title,
+                'poster_image': poster_image,
+                'trailer_youtube': trailer_youtube
+            }
+            json_movies_data['movies'].append(new_movie)
 
-			print('Added this movie.')
+            print('Added this movie.')
 
-			new_movie_added = True
+            new_movie_added = True
 
-			print()
+            print()
 
-		else:
+        else:
 
-			break
+            break
 
-	    
-	if new_movie_added:
-		save_movies()
+    if new_movie_added:
+        save_movies()
 
-	display_trailer_webpage()
+    display_trailer_webpage()
 
 
-if __name__=='__main__':
-	main()
+if __name__ == '__main__':
+    main()
