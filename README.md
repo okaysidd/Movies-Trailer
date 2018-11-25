@@ -13,6 +13,8 @@ This project has been developed on **Python 3.6.7 version**.
 Also **python module - The Movie Database (tmdb)*** is required for the <i>entertainment_udacity.py</i>.
 To download- run ```pip3 install tmdbsimple```.
 
+The project requires the internet to work properly. If the internet not available, users cannot add new movies to the movies webpage and the existing movies in the webpage might not be displayed properly, and the YouTube trailer link and the poster won't work either.
+
 
 To get the project running, add the following files in a folder-
 - <i>entertainment_api.py</i> (uses API provided by tmdb to fetch new movies)
