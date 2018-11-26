@@ -50,7 +50,7 @@ def search_for_movie():
 
     """
     while True:
-        movie_name = input('\nWhich movie should we add to the trailers webpage?\n')
+        movie_name = input('\nWhich movie should we add to the trailers webpage?\n')  # noqa
 
         # initiating search method
         search = tmdb.Search()
@@ -69,7 +69,7 @@ def search_for_movie():
             release_date = movies_list[0]['release_date']
             print('{} - release date- {}'.format(title_of_movie, release_date))
             movie_picked = input('Y/N  ').lower()
-            if movie_picked == 'yes' or movie_picked == 'yus' or movie_picked == 'y':
+            if movie_picked == 'yes' or movie_picked == 'yus' or movie_picked == 'y':  # noqa
                 movie_picked = movies_list[0]
                 return movie_picked
 
@@ -80,7 +80,7 @@ def search_for_movie():
         for s in movies_list[:3]:
             title_of_movie = s['title']
             release_date = s['release_date']
-            print('{}. {} -- release in {}'.format(str(number), title_of_movie, release_date))
+            print('{}. {} -- release in {}'.format(str(number), title_of_movie, release_date))  # noqa
             number += 1
         print()
         print('{}. None of these'.format(str(number)))
@@ -120,13 +120,13 @@ def get_youtube_link(movie_picked):
         key of the YouTube link that can be used to generate the
         whole trailer link.
     """
-    link = 'https://api.themoviedb.org/3/movie/' + movie_picked + '/videos?api_key=' + tmdb.API_KEY + '&language=en-US'
+    link = 'https://api.themoviedb.org/3/movie/' + movie_picked + '/videos?api_key=' + tmdb.API_KEY + '&language=en-US'  # noqa
     try:
         source = urllib.request.urlopen(link)
     except:
         print('Something went wrong. Maybe check the internet connection?\n')
 
-    # getting the movie data in json format from the http request format that the above api returns
+    # getting the movie data in json format from the http request format that the above api returns  # noqa
     data = source.read().decode("utf-8")
     jmovie_data = json.loads(data)
     youtube_link_key = jmovie_data["results"][0]['key']
@@ -164,9 +164,9 @@ def display_trailer_webpage():
         trailer_youtube = json_movies_data['movies'][i]['trailer_youtube']
 
         # adding object each time to the list of movie objects
-        movies_list.append(movies.Movies(movie_title, movie_storyline, poster_image, trailer_youtube))
+        movies_list.append(movies.Movies(movie_title, movie_storyline, poster_image, trailer_youtube))  # noqa
 
-    # using fresh_tomatoes.py file to finally open the webpage with the movie object items
+    # using fresh_tomatoes.py file to finally open the webpage with the movie object items  # noqa
     ft.open_movies_page(movies_list)
 
 
@@ -174,7 +174,7 @@ def main():
     """
     Main function to controll all other functions from one place.
 
-    Handles all functions at one place and lets users have option to add new movies.
+    Handles all functions at one place and lets users have option to add new movies.  # noqa
     If they add new movies, gives options to save new movies' data permanently.
     Retrieves all the movies' data using pythn API module or API url.
     Displays the movies trailer webpage.
@@ -183,7 +183,7 @@ def main():
         source = urllib.request.urlopen('https://www.google.com/')
     except:
         print('Your internet connection might not be working.')
-        print('You won\'t be able to add new movies if the internet connection doesn\'t work.')
+        print('You won\'t be able to add new movies if the internet connection doesn\'t work.')  # noqa
         print('The movies webpage might not work as intended')
         print('The links to the YouTube trailer won\'t work.')
         input('Click enter to continue..  ')
@@ -215,7 +215,7 @@ def main():
             poster_image = 'https://image.tmdb.org/t/p/original' + poster_path
             # webbrowser.open(movie_poster)
 
-            # getting the youtube link and the storyline from the json response of the api
+            # getting the youtube link and the storyline from the json response of the api  # noqa
             trailer_youtube = get_youtube_link(str(movie_picked['id']))
 
             # create object of the movie and add to the json retrieved
